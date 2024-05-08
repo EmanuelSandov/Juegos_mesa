@@ -7,41 +7,42 @@ from collections import deque
 def crear_tablero():
     return [[8, 7, 6], [5, 4, 3], [2, 1, ""]]
 
-
 def crear_tablero_vacio():
     return [["" for _ in range(3)] for _ in range(3)]
-
 
 def mostrar_tablero(tablero):
     for fila in tablero:
         print("|", " | ".join(str(x) if x != "" else " " for x in fila), "|")
-
 
 def encontrar_vacio(tablero):
     for i in range(len(tablero)):
         for j in range(len(tablero[i])):
             if tablero[i][j] == "":
                 return i, j
-
-
+#Metodo de BFS
 def resolver_ia(tablero):
-    queue = deque([(tablero, [], encontrar_vacio(tablero))])
+    # Almacena todo, el tablero, los caminos, y las posiciones de vacio
+    Almacen = deque([(tablero, [], encontrar_vacio(tablero))])
     visitados = set()
+    #Combierte cada fila en una tupla y luego el tablero en tupla
     visitados.add(tuple(tuple(row) for row in tablero))
-    while queue:
-        tablero_actual, camino, (vacio_y, vacio_x) = queue.popleft()
+    while Almacen:
+        #Extrae el primer elemento de la cola para procesarlo
+        tablero_actual, camino, (vacio_y, vacio_x) = Almacen.popleft()
         if verificar_ganador(tablero_actual):
             return camino
         direcciones = [1, 2, 3, 4]  # Arriba, Abajo, Derecha, Izquierda
         for direccion in direcciones:
+            #Crea un nuevo tablero con las nuevas filas cambiadas
             nuevo_tablero = [fila[:] for fila in tablero_actual]
             if Movimiento(vacio_y, vacio_x, direccion, nuevo_tablero, 2):
+                #Lo combierte en dupla el nuevo tablero como el anterior
                 estado_tablero = tuple(tuple(row) for row in nuevo_tablero)
                 if estado_tablero not in visitados:
                     visitados.add(estado_tablero)
-                    queue.append((nuevo_tablero, camino + [direccion], encontrar_vacio(nuevo_tablero)))
+                    #Almacena los nuevos datos
+                    Almacen.append((nuevo_tablero, camino + [direccion], encontrar_vacio(nuevo_tablero)))
     return
-
 
 def Movimiento(Vacio_1, Vacio_2, direccion, tablero, opcion):
     if direccion == 1:
@@ -97,11 +98,9 @@ def Movimiento(Vacio_1, Vacio_2, direccion, tablero, opcion):
             print("Movimiento no valido reintentar")
         return False
 
-
 def verificar_ganador(tablero):
     objetivo = [[8, 7, 6], [5, 4, 3], [2, 1, ""]]
     return tablero == objetivo
-
 
 def actualizar_matriz(tablero):
     while True:
@@ -120,7 +119,6 @@ def actualizar_matriz(tablero):
             print("Solo se permiten números. Intenta de nuevo.")
         print("Intenta de nuevo.")
 
-
 def validar_movimiento(fila, columna, tablero, valor):
     if not (0 <= fila < 3) or not (0 <= columna < 3):
         print("Coordenadas fuera de los límites del tablero.")
@@ -132,7 +130,6 @@ def validar_movimiento(fila, columna, tablero, valor):
         print("Valor inválido. Debe ser un número entre 1 y 8 o un espacio vacío.")
         return False
     return True
-
 
 def menu():
     opcion = input("Elige una opción:\n1) Random\n2) Llenar\n")
@@ -153,8 +150,6 @@ def menu():
     else:
         print("Opción no válida")
         return
-
-    # Si no se escoge resolver automáticamente, permite al usuario jugar manualmente
     while not verificar_ganador(tablero):
         mostrar_tablero(tablero)
         direccion = int(
@@ -164,6 +159,5 @@ def menu():
 
     mostrar_tablero(tablero)
     print("\t--- GANADOR ---")
-
 
 menu()
