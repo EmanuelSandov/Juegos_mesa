@@ -12,7 +12,7 @@ X = int(input("Selecciona con quien quiere jugar:  "))
 
 if X == 1:
     for i in range(0, 9):
-        for j in range(0, 2):
+        for j in range(0, 3):
             if Tablero[0][j] == 'X' and Tablero[1][j] == 'X' and Tablero[2][j] == 'X':
                 print("Ganador el jugador 1")
                 exit()
@@ -71,7 +71,7 @@ if X == 1:
     print("Tablero lleno ")
 elif X == 2:
     for i in range(0, 9):
-        for j in range(0, 2):
+        for j in range(0, 3):
             if Tablero[0][j] == 'X' and Tablero[1][j] == 'X' and Tablero[2][j] == 'X':
                 print("Ganaste")
                 exit()
@@ -117,6 +117,49 @@ elif X == 2:
             while ValidoY == 1:
                 TiroY_Fila = randrange(3)
                 TiroY_Colum = randrange(3)
+                for i in range(0, 9):
+                    for j in range(0, 3):
+                        # Caso 1 X abajo X
+                        if Tablero[0][j] == 'X' and Tablero[1][j] == 'X' and Tablero[2][j] == '_':
+                            TiroY_Fila = 2
+                            TiroY_Colum = j
+                        # Caso 2 XX_
+                        elif Tablero[j][0] == "X" and Tablero[j][1] == "X" and Tablero[j][2] == "_":
+                            TiroY_Fila = j
+                            TiroY_Colum = 2
+                        #caso 3 X arriba X
+                        elif Tablero[1][j]=="X" and Tablero[2][j] == "X" and Tablero[0][j] == "_":
+                            TiroY_Fila = 0
+                            TiroY_Colum = j
+                        #caso 4 _XX
+                        elif Tablero[j][2] =="X" and Tablero[j][1] == "X" and Tablero[j][0] == "_":
+                            TiroY_Fila = j
+                            TiroY_Colum = 0
+                        #caso 5 X vacio X
+                        elif Tablero[0][j] =="X" and Tablero[2][j] == "X" and Tablero[1][j] == "_":
+                            TiroY_Fila = 1
+                            TiroY_Colum = j
+                        #Caso 6 x_X
+                        elif Tablero[j][0]=="X" and Tablero[j][2] == "X" and Tablero[j][1] == "_":
+                            TiroY_Fila = j
+                            TiroY_Colum = 1
+                        #Caso 7 diagonal XX_
+                        elif Tablero[0][0] == "X" and Tablero[1][1] == "X" and Tablero[2][2] == "_":
+                            TiroY_Fila = 2
+                            TiroY_Colum = 2
+                        #Caso 8 Diagonal con X_X
+                        elif Tablero[0][0] =="X" and Tablero[2][2] == "X" and Tablero[1][1] == "_":
+                            TiroY_Fila = 1
+                            TiroY_Colum = 1
+                        #Caso 9 Diagonal inversa _XX
+                        elif Tablero[0][2]=="X" and Tablero[1][1]=="X" and Tablero[2][0]=="_":
+                            TiroY_Fila = 2
+                            TiroY_Colum = 0
+                        #Caso 10 Diagonal con X_X
+                        elif Tablero[0][2] =="X"  and Tablero[2][0]=="X" and Tablero[1][1]=="_":
+                            TiroY_Fila = 1
+                            TiroY_Colum = 1
+
                 if Tablero[TiroY_Fila][TiroY_Colum] == ("X") or Tablero[TiroY_Fila][TiroY_Colum] == ("Y"):
                     print("El tiro no valido reintentar IA\n")
                 else:
