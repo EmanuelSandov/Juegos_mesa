@@ -5,7 +5,7 @@ Tablero = [["_", "_", "_"],
            ["_", "_", "_"]]
 Ganador = False
 
-print("JUEGO DEL GATO") //Bueno
+print("JUEGO DEL GATO")
 print("1) 1 vs 1")
 print("2) 1 vs IA")
 X = int(input("Selecciona con quien quiere jugar:  "))
