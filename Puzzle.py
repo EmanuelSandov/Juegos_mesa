@@ -7,7 +7,7 @@ from collections import deque
 def crear_tablero():
     return [[8, 7, 6], [5, 4, 3], [2, 1, ""]]
 
-def crear_tablero_vacio():
+def crear_tablero_vacio(): //Bueno
     return [["" for _ in range(3)] for _ in range(3)]
 
 def mostrar_tablero(tablero):
